@@ -12,3 +12,11 @@ Nível 2
 
 -Selenium com Page Objects / Page Factory
 
+
+  /*Feature: palavras chaves em inglês
+            Scenario:
+            Given
+            When
+            Then
+            */
+
