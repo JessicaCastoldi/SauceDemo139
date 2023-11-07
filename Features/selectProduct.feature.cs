@@ -75,11 +75,11 @@ namespace SauceDemo139.Features
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Selecao de Produto com Sucesso")]
-        [NUnit.Framework.CategoryAttribute("Loja")]
+        [NUnit.Framework.CategoryAttribute("Compra")]
         public void SelecaoDeProdutoComSucesso()
         {
             string[] tagsOfScenario = new string[] {
-                    "Loja"};
+                    "Compra"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Selecao de Produto com Sucesso", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 3
