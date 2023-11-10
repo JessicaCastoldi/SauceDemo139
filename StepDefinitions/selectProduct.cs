@@ -1,6 +1,7 @@
 using System;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
 using TechTalk.SpecFlow;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
@@ -13,8 +14,8 @@ namespace MyNamespace
 
         private readonly ScenarioContext _scenarioContext;
         private IWebDriver driver; //objeto do Selenium
-
-        public StepDefinitions(ScenarioContext _scenarioContext)
+      
+        public StepDefinitions(ScenarioContext scenarioContext)
         {
             _scenarioContext = scenarioContext;
         }
@@ -32,6 +33,7 @@ namespace MyNamespace
 
         [AfterScenario]
         public void TearDown()
+            //Encerra o Chrome - finaliza
         {
             driver.Quit();
         }
@@ -39,71 +41,82 @@ namespace MyNamespace
         [Given(@"que acesso a pagina inicial do site")]
         public void GivenQueAcessoAPaginaInicialDoSite()
         {
-            _scenarioContext.Pending();
+            driver.Navigate().GoToUrl("https://www.saucedemo.com/");
         }
 
-/*When preencho o usuario como "standard_user"
--> No matching step definition found for the step. Use the following code to create one:*/
+/*Quando preencho o usuario como "standard_user"*/
         [When(@"preencho o usuario como ""(.*)""")]
-        public void WhenPreenchoOUsuarioComo(string p0)
+        public void WhenPreenchoOUsuarioComo(string username)
         {
-            _scenarioContext.Pending();
+           driver.FindElement(By.Id("user-name")).SendKeys(username);
         }
 
-/*And a senha "secret_sauce" e clico no botão Login
--> No matching step definition found for the step. Use the following code to create one:*/
+/*And a senha "secret_sauce" e clico no botão Login*/
         [When(@"a senha ""(.*)"" e clico no botão Login")]
-        public void WhenASenhaEClicoNoBotaoLogin(string p0)
+        public void WhenASenhaEClicoNoBotaoLogin(string password)
         {
-            _scenarioContext.Pending();
+            //Entrar no site e digitar a senha - pegar id no inspecionar
+            driver.FindElement(By.Id("password")).SendKeys(password);
+            //clicar no botão login
+            driver.FindElement(By.Id("login-button")).Click();
         }
 
-/*Then exibe "Products" no titulo da secao
--> No matching step definition found for the step. Use the following code to create one:*/
+/*\Então exibe "Products" no titulo da secao*/
         [Then(@"exibe ""(.*)"" no titulo da secao")]
-        public void ThenExibeNoTituloDaSecao(string products)
+        public void ThenExibeNoTituloDaSecao(string title)
         {
-            _scenarioContext.Pending();
+            //Espera explicita pelo elemento span.title ser carregado na página
+            WebDriverWait wait= new WebDriverWait(driver, TimeSpan.FromMilliseconds(3000));
+            wait.Until(d => driver.FindElement(By.CssSelector("span.title")).Displayed);
+            Assert.That(driver.FindElement(By.CssSelector("span.title")).Text,
+                                             Is.EqualTo(title));
         }
 
-/*When adiciono o produto "Sauce Labs Backpack" ao carrinho
--> No matching step definition found for the step. Use the following code to create one:*/
+/*Quando adiciono o produto "Sauce Labs Backpack" ao carrinho*/
         [When(@"adiciono o produto ""(.*)"" ao carrinho")]
-        public void WhenAdicionoOProdutoAoCarrinho(string p0)
+        public void WhenAdicionoOProdutoAoCarrinho(string product)
         {
-            _scenarioContext.Pending();
+           String productSelector = "add-to-cart-" + product.ToLower().Replace(" ","-");
+           Console.WriteLine($" Seletor de Produto = {productSelector}");
+           //id da mochila: add-to-cart-sauce-labs-backpack
+           //id da lanterna: add-to-cart-sauce-labs-bolt-t-shirt
+           //O nome do produto vem do arquivo .feature = Sauce Labs
+           //O texto vem com as maisculas e o id minuscula e com hifens
+           //Sauce Labs Backpack --> ToLower() --> sauce labs backpack
+           //Replace troca espaço por - 
+
+           driver.FindElement(By.Id(productSelector)).Click();
         }
 
-/*And clico no icone do carriho de compra
--> No matching step definition found for the step. Use the following code to create one:*/
+/*And clico no icone do carriho de compra*/
         [When(@"clico no icone do carriho de compra")]
         public void WhenClicoNoIconeDoCarrihoDeCompra()
         {
-            _scenarioContext.Pending();
+           driver.FindElement(By.Id("shopping_cart_container")).Click();
         }
 
-/*Then exibe a pagina do carrinho com a quantidade "1"
--> No matching step definition found for the step. Use the following code to create one:*/
+/*Então exibe a pagina do carrinho com a quantidade "1"*/
         [Then(@"exibe a pagina do carrinho com a quantidade ""(.*)""")]
-        public void ThenExibeAPaginaDoCarrinhoComAQuantidade(string p0)
+        public void ThenExibeAPaginaDoCarrinhoComAQuantidade(string quantity)
         {
-            _scenarioContext.Pending();
+            Assert.That(driver.FindElement(By.CssSelector("div.cart_quantity")).Text,
+                                           Is.EqualTo(quantity));
         }
 
-/*And nome do produto "Sauce Labs Backpack"
--> No matching step definition found for the step. Use the following code to create one:*/
+/*And nome do produto "Sauce Labs Backpack"*/
         [Then(@"nome do produto ""(.*)""")]
-        public void ThenNomeDoProduto(string p0)
+        public void ThenNomeDoProduto(string nameproduct)
         {
-            _scenarioContext.Pending();
+            Assert.That(driver.FindElement(By.CssSelector("div.inventory_item_name")).Text,
+                                            Is.EqualTo(nameproduct));
         }
 
-/*And o preco como "$29.99"
--> No matching step definition found for the step. Use the following code to create one:*/
+/*And o preco como "$29.99"*/
         [Then(@"o preco como ""(.*)""")]
-        public void ThenOPrecoComo(string p0)
+        public void ThenOPrecoComo(string priceproduct)
         {
-            _scenarioContext.Pending();
+            Assert.That(driver.FindElement(By.CssSelector("div.inventory_item_price")).Text,
+                                            Is.EqualTo(priceproduct));
         }
             }
                   }
