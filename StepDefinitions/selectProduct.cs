@@ -74,6 +74,7 @@ namespace MyNamespace
 
 /*Quando adiciono o produto "Sauce Labs Backpack" ao carrinho*/
         [When(@"adiciono o produto ""(.*)"" ao carrinho")]
+         [When(@"adiciono o produto ""(.*)""  ao carrinho")]
         public void WhenAdicionoOProdutoAoCarrinho(string product)
         {
            String productSelector = "add-to-cart-" + product.ToLower().Replace(" ","-");

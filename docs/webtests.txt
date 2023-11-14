@@ -6,11 +6,18 @@ Nível 1
 
 Nível 2
 -Selenium com SpecFlow: BDD / Gherkin / Cucumber (significa pepino) (padronização de comunicação)
-2 arquivos
+2  tipos de arquivos
 -.feature --> descrição/ critério de aceitação
 -.cs --> passos da automação
 
 -Selenium com Page Objects / Page Factory
+3 tipos de arquivos
+- .cs --> mapeamento dos elementos de cada página
+-.feature --> descrição/ critério de aceitação
+-.cs --> passos da automação
+
+Positivos - Aumenta o reaproveitamento - aumenta produtividade
+Negativos-  Complexo para projetos pequenos
 
 
   /*Feature:Funcionalidade palavras chaves em inglês
@@ -19,5 +26,7 @@ Nível 2
             When / Quando
             Then / Então
             And - E
+            Scenario OutLine - Esquema do Cenário  //informa que ele vai trabalhar com dados
+            Examples - Exemplos
             */
 
