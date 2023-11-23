@@ -14,29 +14,30 @@ namespace MyNamespace
 
         private readonly ScenarioContext _scenarioContext;
         private IWebDriver driver; //objeto do Selenium
-      
+
         public StepDefinitions(ScenarioContext scenarioContext)
         {
             _scenarioContext = scenarioContext;
-        }
+            driver = (IWebDriver)_scenarioContext["driver"];
+        } 
 
-        [BeforeScenario]
-        public void SetUp()
-        {
-            //Instanciando o Chrome driver através do webDriverManager
-            new DriverManager().SetUpDriver(new ChromeConfig());
-            //Instanciou o SeLenium como Chrome
-            driver = new ChromeDriver();
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromMilliseconds(10000);
-            driver.Manage().Window.Maximize();
-        }
+      /*  [BeforeScenario] Foi FEito no arquivo Hooks 
+         public void SetUp()
+         {
+             //Instanciando o Chrome driver através do webDriverManager
+             new DriverManager().SetUpDriver(new ChromeConfig());
+             //Instanciou o SeLenium como Chrome
+             driver = new ChromeDriver();
+             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromMilliseconds(10000);
+             driver.Manage().Window.Maximize();
+         }
 
-        [AfterScenario]
-        public void TearDown()
-            //Encerra o Chrome - finaliza
-        {
-            driver.Quit();
-        }
+        [AfterScenario] 
+         public void TearDown()
+             //Encerra o Chrome - finaliza
+         {
+             driver.Quit();
+         }*/
 
         [Given(@"que acesso a pagina inicial do site")]
         public void GivenQueAcessoAPaginaInicialDoSite()

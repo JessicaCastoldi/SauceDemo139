@@ -10,7 +10,7 @@ namespace Pages
     {
    //Atributos
         //Mapeamento dos elementos
-        private IWebElement txtUsuario => driver.FindElement(By.Id("usar-name"));
+        private IWebElement txtUsuario => driver.FindElement(By.Id("user-name"));
         private IWebElement txtSenha => driver.FindElement(By.Id("password"));
         private IWebElement btnLogin => driver.FindElement(By.Id("login-button"));
 
@@ -20,9 +20,14 @@ namespace Pages
         public LoginPage(IWebDriver driver) : base(driver) { }
 
         //Ações a serem usadas na automação
-        public void PreencherUsuarioESenha(String usuario, String senha)
+        public void PreencherUsuario(String usuario)
         {
             txtUsuario.SendKeys(usuario);
+            
+        }
+
+        public void PreencherSenha(String senha)
+        {
             txtSenha.SendKeys(senha);
         }
 
